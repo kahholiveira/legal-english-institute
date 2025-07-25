@@ -1,0 +1,177 @@
+{
+  "name": "legal-english-institute",
+  "version": "1.0.0",
+  "description": "Professional legal English training platform with comprehensive courses and interactive learning tools",
+  "main": "index.html",
+  "keywords": [
+    "legal-english",
+    "law-education",
+    "english-learning",
+    "legal-training",
+    "education-platform",
+    "responsive-design",
+    "modern-web"
+  ],
+  "author": {
+    "name": "Thiago Calmon",
+    "email": "thiago@thiagocalmonenglish.com",
+    "url": "https://thiagocalmonenglish.com"
+  },
+  "license": "MIT",
+  "homepage": ".",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/username/legal-english-institute.git"
+  },
+  "bugs": {
+    "url": "https://github.com/username/legal-english-institute/issues",
+    "email": "thiago@thiagocalmonenglish.com"
+  },
+  "engines": {
+    "node": ">=16.0.0",
+    "npm": ">=8.0.0"
+  },
+  "scripts": {
+    "start": "npm run serve",
+    "dev": "npm run serve",
+    "serve": "live-server --port=3000 --host=localhost --open=/ --watch=.",
+    "serve:prod": "live-server --port=8080 --host=0.0.0.0 --no-browser --entry-file=index.html",
+    "build": "npm run clean && npm run copy && npm run minify",
+    "build:dev": "npm run clean && npm run copy",
+    "clean": "rimraf dist && mkdir -p dist",
+    "copy": "npm run copy:html && npm run copy:assets && npm run copy:js && npm run copy:css",
+    "copy:html": "cp index.html dist/",
+    "copy:assets": "cp -r assets dist/ 2>/dev/null || :",
+    "copy:js": "cp -r js dist/",
+    "copy:css": "cp -r styles dist/",
+    "minify": "npm run minify:html && npm run minify:css && npm run minify:js",
+    "minify:html": "html-minifier --collapse-whitespace --remove-comments --minify-css --minify-js dist/index.html -o dist/index.html",
+    "minify:css": "cleancss -o dist/styles/style.css dist/styles/style.css",
+    "minify:js": "terser dist/js/script.js -o dist/js/script.js --compress --mangle",
+    "lint": "npm run lint:html && npm run lint:css && npm run lint:js",
+    "lint:html": "htmlhint index.html",
+    "lint:css": "stylelint 'styles/**/*.css'",
+    "lint:js": "eslint js/**/*.js",
+    "lint:fix": "npm run lint:css -- --fix && npm run lint:js -- --fix",
+    "format": "prettier --write '**/*.{html,css,js,json,md}'",
+    "format:check": "prettier --check '**/*.{html,css,js,json,md}'",
+    "test": "npm run test:html && npm run test:css && npm run test:js",
+    "test:html": "htmlhint index.html",
+    "test:css": "stylelint 'styles/**/*.css'",
+    "test:js": "eslint js/**/*.js",
+    "validate": "npm run lint && npm run format:check",
+    "optimize": "npm run optimize:images && npm run optimize:assets",
+    "optimize:images": "imagemin 'assets/**/*.{jpg,png,gif,svg}' --out-dir=dist/assets",
+    "optimize:assets": "echo 'Asset optimization complete'",
+    "deploy": "npm run build && npm run deploy:netlify",
+    "deploy:netlify": "netlify deploy --prod --dir=dist",
+    "deploy:surge": "npm run build && surge dist/ legal-english-institute.surge.sh",
+    "deploy:github": "npm run build && gh-pages -d dist",
+    "preview": "npm run build && npm run serve:prod",
+    "watch": "npm run watch:css & npm run watch:js",
+    "watch:css": "nodemon --watch styles --ext css --exec 'npm run lint:css'",
+    "watch:js": "nodemon --watch js --ext js --exec 'npm run lint:js'",
+    "security": "npm audit",
+    "security:fix": "npm audit fix",
+    "deps:check": "npm-check-updates",
+    "deps:update": "npm-check-updates -u && npm install",
+    "size": "bundlesize",
+    "perf": "lighthouse http://localhost:3000 --output=html --output-path=./reports/lighthouse.html",
+    "analyze": "npm run size && npm run perf"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.0.0",
+    "clean-css-cli": "^5.6.3",
+    "eslint": "^9.0.0",
+    "gh-pages": "^6.1.1",
+    "html-minifier": "^4.0.0",
+    "htmlhint": "^1.1.4",
+    "imagemin": "^8.0.1",
+    "imagemin-cli": "^8.0.0",
+    "lighthouse": "^12.0.0",
+    "live-server": "^1.2.2",
+    "netlify-cli": "^17.0.0",
+    "nodemon": "^3.1.0",
+    "npm-check-updates": "^16.14.20",
+    "prettier": "^3.2.5",
+    "rimraf": "^5.0.5",
+    "stylelint": "^16.3.1",
+    "stylelint-config-standard": "^36.0.0",
+    "surge": "^0.23.1",
+    "terser": "^5.29.1"
+  },
+  "dependencies": {
+    "normalize.css": "^8.0.1"
+  },
+  "bundlesize": [
+    {
+      "path": "./dist/styles/style.css",
+      "maxSize": "50kb"
+    },
+    {
+      "path": "./dist/js/script.js",
+      "maxSize": "30kb"
+    }
+  ],
+  "eslintConfig": {
+    "env": {
+      "browser": true,
+      "es2021": true
+    },
+    "extends": [
+      "eslint:recommended"
+    ],
+    "parserOptions": {
+      "ecmaVersion": "latest",
+      "sourceType": "module"
+    },
+    "rules": {
+      "no-console": "warn",
+      "no-unused-vars": "error",
+      "prefer-const": "error",
+      "no-var": "error"
+    }
+  },
+  "stylelint": {
+    "extends": [
+      "stylelint-config-standard"
+    ],
+    "rules": {
+      "declaration-block-trailing-semicolon": "always",
+      "block-no-empty": true,
+      "color-no-invalid-hex": true,
+      "declaration-colon-space-after": "always",
+      "declaration-colon-space-before": "never",
+      "function-comma-space-after": "always",
+      "media-feature-colon-space-after": "always",
+      "media-feature-colon-space-before": "never",
+      "property-no-unknown": true,
+      "selector-combinator-space-after": "always",
+      "selector-list-comma-space-after": "always",
+      "selector-list-comma-space-before": "never",
+      "string-quotes": "double",
+      "value-list-comma-space-after": "always"
+    }
+  },
+  "prettier": {
+    "semi": true,
+    "trailingComma": "es5",
+    "singleQuote": true,
+    "printWidth": 100,
+    "tabWidth": 2,
+    "useTabs": false,
+    "bracketSpacing": true,
+    "arrowParens": "avoid",
+    "endOfLine": "lf"
+  },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not dead",
+    "not ie 11"
+  ],
+  "volta": {
+    "node": "18.19.1",
+    "npm": "10.2.4"
+  }
+}
