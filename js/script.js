@@ -7,8 +7,6 @@ class LegalEnglishApp {
     constructor() {
         this.init();
         this.bindEvents();
-        this.loadUserProgress();
-        this.startProgressSimulation();
     }
 
     /**
@@ -19,9 +17,6 @@ class LegalEnglishApp {
         this.navbar = document.getElementById('navbar');
         this.hamburger = document.getElementById('hamburger');
         this.navMenu = document.getElementById('nav-menu');
-        this.progressPanel = document.getElementById('progress-panel');
-        this.progressToggle = document.getElementById('progress-toggle');
-        this.progressContent = document.getElementById('progress-content');
         
         // Course tabs
         this.tabButtons = document.querySelectorAll('.tab-button');
@@ -30,14 +25,6 @@ class LegalEnglishApp {
         // Buttons and interactive elements
         this.enrollButtons = document.querySelectorAll('.btn-primary');
         this.navLinks = document.querySelectorAll('.nav-link');
-        
-        // Progress simulation data
-        this.progressData = {
-            overall: 67,
-            current: 45,
-            certificates: 3,
-            totalCertificates: 8
-        };
         
         // Loading states
         this.isLoading = false;
@@ -60,8 +47,6 @@ class LegalEnglishApp {
             button.addEventListener('click', (e) => this.switchTab(e));
         });
         
-        // Progress panel toggle
-        this.progressToggle?.addEventListener('click', () => this.toggleProgressPanel());
         
         // Smooth scrolling for navigation links
         this.navLinks.forEach(link => {
@@ -187,31 +172,6 @@ class LegalEnglishApp {
         }
     }
 
-    /**
-     * Smart Progress Panel Toggle
-     */
-    toggleProgressPanel() {
-        try {
-            const isCollapsed = this.progressContent.classList.contains('collapsed');
-            
-            if (isCollapsed) {
-                this.progressContent.classList.remove('collapsed');
-                this.progressToggle.classList.remove('collapsed');
-                this.progressToggle.innerHTML = '<i class="fas fa-chevron-up"></i>';
-            } else {
-                this.progressContent.classList.add('collapsed');
-                this.progressToggle.classList.add('collapsed');
-                this.progressToggle.innerHTML = '<i class="fas fa-chevron-down"></i>';
-            }
-            
-            // Update progress data when opened
-            if (!isCollapsed) {
-                this.updateProgressData();
-            }
-        } catch (error) {
-            console.error('Error toggling progress panel:', error);
-        }
-    }
 
     /**
      * Smooth Scrolling Navigation
@@ -262,10 +222,10 @@ class LegalEnglishApp {
         
         // Navbar background and shadow changes
         if (scrollY > 50) {
-            this.navbar.style.background = 'rgba(10, 11, 30, 0.95)';
-            this.navbar.style.boxShadow = '0 5px 20px rgba(0, 0, 0, 0.3)';
+            this.navbar.style.background = 'rgba(0, 0, 0, 0.95)';
+            this.navbar.style.boxShadow = '0 5px 20px rgba(0, 0, 0, 0.5)';
         } else {
-            this.navbar.style.background = 'rgba(10, 11, 30, 0.8)';
+            this.navbar.style.background = 'rgba(0, 0, 0, 0.8)';
             this.navbar.style.boxShadow = 'none';
         }
         
@@ -284,7 +244,7 @@ class LegalEnglishApp {
      * Update active section based on scroll position
      */
     updateActiveSection() {
-        const sections = ['home', 'dashboard', 'courses', 'contact'];
+        const sections = ['home', 'dashboard', 'courses', 'articles', 'contact'];
         const scrollPos = window.scrollY + 100;
         
         sections.forEach(sectionId => {
@@ -326,8 +286,6 @@ class LegalEnglishApp {
             button.innerHTML = '<i class="fas fa-check"></i> Enrolled!';
             button.style.background = 'linear-gradient(135deg, #10b981, #059669)';
             
-            // Update progress
-            this.updateUserProgress(courseName);
             
             // Show success notification
             this.showNotification('Successfully enrolled in ' + courseName, 'success');
@@ -378,107 +336,6 @@ class LegalEnglishApp {
         });
     }
 
-    /**
-     * Progress Tracking with localStorage
-     */
-    loadUserProgress() {
-        try {
-            const savedProgress = localStorage.getItem('legalEnglishProgress');
-            if (savedProgress) {
-                this.progressData = { ...this.progressData, ...JSON.parse(savedProgress) };
-            }
-            this.updateProgressDisplay();
-        } catch (error) {
-            console.error('Error loading progress:', error);
-        }
-    }
-
-    updateUserProgress(courseName) {
-        try {
-            // Simulate progress increase
-            this.progressData.overall = Math.min(100, this.progressData.overall + 5);
-            this.progressData.current = Math.min(100, this.progressData.current + 10);
-            
-            // Save to localStorage
-            localStorage.setItem('legalEnglishProgress', JSON.stringify(this.progressData));
-            
-            // Update display
-            this.updateProgressDisplay();
-        } catch (error) {
-            console.error('Error updating progress:', error);
-        }
-    }
-
-    updateProgressDisplay() {
-        const overallBar = document.querySelector('.progress-fill');
-        const currentBar = document.querySelectorAll('.progress-fill')[1];
-        const overallPercent = document.querySelector('.progress-percent');
-        const currentPercent = document.querySelectorAll('.progress-percent')[1];
-        const certificateCount = document.querySelector('.progress-count');
-        
-        if (overallBar) {
-            overallBar.style.width = `${this.progressData.overall}%`;
-            overallPercent.textContent = `${this.progressData.overall}%`;
-        }
-        
-        if (currentBar) {
-            currentBar.style.width = `${this.progressData.current}%`;
-            currentPercent.textContent = `${this.progressData.current}%`;
-        }
-        
-        if (certificateCount) {
-            certificateCount.textContent = `${this.progressData.certificates} of ${this.progressData.totalCertificates}`;
-        }
-    }
-
-    /**
-     * Start progress simulation
-     */
-    startProgressSimulation() {
-        setInterval(() => {
-            // Simulate small progress increments
-            if (Math.random() > 0.7) {
-                this.progressData.current = Math.min(100, this.progressData.current + 1);
-                this.updateProgressDisplay();
-            }
-        }, 10000); // Update every 10 seconds
-    }
-
-    /**
-     * Update progress data with animation
-     */
-    updateProgressData() {
-        const progressBars = document.querySelectorAll('.progress-fill');
-        progressBars.forEach((bar, index) => {
-            const currentWidth = parseInt(bar.style.width) || 0;
-            const targetWidth = index === 0 ? this.progressData.overall : this.progressData.current;
-            
-            this.animateProgressBar(bar, currentWidth, targetWidth);
-        });
-    }
-
-    animateProgressBar(bar, start, end) {
-        const duration = 1000;
-        const startTime = performance.now();
-        
-        const animate = (currentTime) => {
-            const elapsed = currentTime - startTime;
-            const progress = Math.min(elapsed / duration, 1);
-            
-            const currentValue = start + (end - start) * this.easeOutCubic(progress);
-            bar.style.width = `${currentValue}%`;
-            
-            if (progress < 1) {
-                requestAnimationFrame(animate);
-            }
-        };
-        
-        requestAnimationFrame(animate);
-    }
-
-    easeOutCubic(t) {
-        return 1 - Math.pow(1 - t, 3);
-    }
 
     /**
      * Mobile Detection
