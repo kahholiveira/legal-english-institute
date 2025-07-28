@@ -4,17 +4,17 @@
 :root {
   /* Primary Colors */
   --primary-dark: #000000;
-  --primary-darker: #111111;
-  --secondary-dark: #1a1a1a;
+  --primary-darker: #000000;
+  --secondary-dark: #000000;
   --accent-blue: #333333;
   --accent-cyan: #444444;
   --accent-purple: #555555;
   
   /* Gradient Colors */
-  --gradient-primary: linear-gradient(135deg, #000000 0%, #111111 50%, #1a1a1a 100%);
-  --gradient-secondary: linear-gradient(135deg, #111111 0%, #1a1a1a 50%, #222222 100%);
-  --gradient-accent: linear-gradient(135deg, #1a1a1a 0%, #222222 50%, #333333 100%);
-  --gradient-dark: linear-gradient(135deg, #000000 0%, #111111 50%, #1a1a1a 100%);
+  --gradient-primary: #000000;
+  --gradient-secondary: #000000;
+  --gradient-accent: #000000;
+  --gradient-dark: #000000;
   
   /* Text Colors */
   --text-primary: #ffffff;
@@ -24,8 +24,8 @@
   
   /* Background Colors */
   --bg-primary: #000000;
-  --bg-secondary: #111111;
-  --bg-tertiary: #1a1a1a;
+  --bg-secondary: #000000;
+  --bg-tertiary: #000000;
   --bg-glass: rgba(255, 255, 255, 0.05);
   --bg-glass-dark: rgba(0, 0, 0, 0.8);
   
@@ -134,7 +134,7 @@ p {
   left: -100%;
   width: 100%;
   height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  background: rgba(255, 255, 255, 0.1);
   transition: left var(--transition-medium);
 }
 
@@ -266,7 +266,7 @@ p {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: var(--gradient-dark);
+  background: #000000;
   position: relative;
   overflow: hidden;
 }
@@ -348,7 +348,7 @@ p {
    ==================================== */
 .dashboard {
   padding: var(--spacing-2xl) 0;
-  background: var(--bg-primary);
+  background: #000000;
 }
 
 .dashboard-grid {
@@ -358,7 +358,7 @@ p {
 }
 
 .feature-card {
-  background: #111111;
+  background: #000000;
   backdrop-filter: blur(15px);
   border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: var(--radius-lg);
@@ -420,7 +420,7 @@ p {
    ==================================== */
 .courses {
   padding: var(--spacing-2xl) 0;
-  background: var(--bg-secondary);
+  background: #000000;
 }
 
 .course-tabs {
@@ -463,7 +463,7 @@ p {
 }
 
 .course-card {
-  background: #111111;
+  background: #000000;
   backdrop-filter: blur(15px);
   border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: var(--radius-lg);
@@ -550,7 +550,7 @@ p {
    ==================================== */
 .articles {
   padding: var(--spacing-2xl) 0;
-  background: var(--bg-primary);
+  background: #000000;
 }
 
 .articles-grid {
@@ -560,7 +560,7 @@ p {
 }
 
 .article-card {
-  background: #111111;
+  background: #000000;
   border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: var(--radius-lg);
   padding: var(--spacing-xl);
@@ -622,7 +622,7 @@ p {
    FOOTER
    ==================================== */
 .footer {
-  background: var(--primary-darker);
+  background: #000000;
   padding: var(--spacing-2xl) 0 var(--spacing-lg);
   border-top: 1px solid var(--border-glass);
 }
@@ -863,7 +863,7 @@ html {
 }
 
 .loading {
-  background: linear-gradient(90deg, var(--bg-tertiary) 0px, var(--bg-glass) 40px, var(--bg-tertiary) 80px);
+  background: #000000;
   background-size: 200px;
   animation: shimmer 1.5s infinite;
 }
