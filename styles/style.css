@@ -99,12 +99,21 @@ h1, h2, h3, h4, h5, h6 {
   margin-bottom: var(--spacing-sm);
 }
 
-h1 { 
-  font-size: clamp(2.5rem, 5vw, 4rem); 
-  color: #87ceeb;
-  text-align: center;
-  font-family: 'Playfair Display', serif;
+h1 {
+    text-align: center;
+    font-family: 'Playfair Display', serif;
+    color: #87ceeb; /* Azul claro */
+    font-size: 3em;
+    margin-bottom: 20px;
 }
+
+h6 {
+    text-align: center;
+    color: #87ceeb; /* Azul claro */
+    font-style: italic;
+    margin-bottom: 20px;
+}
+
 h2 { font-size: clamp(2rem, 4vw, 3rem); }
 h3 { font-size: clamp(1.5rem, 3vw, 2rem); }
 h4 { font-size: clamp(1.25rem, 2.5vw, 1.5rem); }
@@ -930,4 +939,60 @@ html {
 
 ::-webkit-scrollbar-thumb:hover {
   background: var(--accent-cyan);
+}
+
+/* Forçar título em azul claro */
+h1 {
+    color: #87ceeb !important;
+    text-align: center;
+    font-size: 3em;
+    margin: 20px 0;
+    background: none !important;
+}
+
+/* Header fix */
+header h1 {
+    color: #87ceeb !important;
+    background: transparent !important;
+}
+
+/* Garantir que não há override no header */
+header {
+    background-color: #333 !important;
+}
+
+/* Corrigir texto da empresa */
+.company-info, header p {
+    color: #87ceeb !important;
+    font-size: 0.9em;
+    text-align: center;
+}
+
+/* CORREÇÕES URGENTES */
+h1, .main-title {
+    color: #87ceeb !important;
+    background-color: transparent !important;
+    background: none !important;
+    text-shadow: none !important;
+}
+
+/* Corrigir header */
+header h1 {
+    color: #87ceeb !important;
+    background: transparent !important;
+    padding: 0 !important;
+}
+
+/* Remover sobreposições */
+.card, .feature-card {
+    position: static !important;
+    float: none !important;
+    clear: both !important;
+}
+
+/* Forçar layout limpo */
+#mainpage {
+    clear: both;
+    overflow: hidden;
+    padding: 20px;
 }
